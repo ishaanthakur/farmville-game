@@ -406,7 +406,7 @@ int main(int argc, char **argv) {
     }
   };
 
-  auto Chicken1ChillOut = [&]() -> void {
+  auto Chicken1Chilling = [&]() -> void {
     for (;;) {
       std::this_thread::sleep_for(SLOWER_ANIMATION_LATENCY);
       std::unique_lock<std::mutex> lock(refresh_mutex);
@@ -467,7 +467,7 @@ int main(int argc, char **argv) {
     }
   };
 
-  auto Chicken2ChillOut = [&]() -> void {
+  auto Chicken2Chilling = [&]() -> void {
     for (;;) {
       std::this_thread::sleep_for(SLOWER_ANIMATION_LATENCY);
       std::unique_lock<std::mutex> lock(refresh_mutex);
@@ -795,7 +795,7 @@ int main(int argc, char **argv) {
       nest2_is_open = true;
       nest2_open.notify_one();
 
-      Chicken1ChillOut();
+      Chicken1Chilling();
 
       lock.lock();
       nest1_open.wait(lock, [&]() { return nest1_is_open; });
@@ -820,7 +820,7 @@ int main(int argc, char **argv) {
       nest2_is_open = true;
       nest2_open.notify_one();
 
-      Chicken2ChillOut();
+      Chicken2Chilling();
 
       lock.lock();
       nest3_open.wait(lock, [&]() { return nest3_is_open; });
